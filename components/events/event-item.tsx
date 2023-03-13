@@ -4,7 +4,7 @@ import AddressIcon from "@/components/icons/address-icon";
 import ArrowRightIcon from "@/components/icons/arrow-right-icon";
 import DateIcon from "@/components/icons/date-icon";
 import Button from "@/components/ui/button";
-import { AppEvent } from "@/dummy-data";
+import { AppEvent } from "@/interfaces/app-event.interface";
 
 import styles from "./event-item.module.css";
 

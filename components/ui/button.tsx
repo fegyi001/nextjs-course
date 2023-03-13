@@ -3,11 +3,22 @@ import { ReactNode } from "react";
 
 import styles from "./button.module.css";
 
-export default function Button(props: { link: string; children: ReactNode }) {
-  const { link, children } = props;
+export default function Button(props: {
+  link?: string;
+  children: ReactNode;
+  onClick?: any;
+}) {
+  const { link, children, onClick } = props;
+  if (link) {
+    return (
+      <Link href={link} className={styles.btn}>
+        {children}
+      </Link>
+    );
+  }
   return (
-    <Link href={link} className={styles.btn}>
+    <button className={styles.btn} onClick={onClick}>
       {children}
-    </Link>
+    </button>
   );
 }

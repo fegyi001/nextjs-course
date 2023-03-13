@@ -1,4 +1,4 @@
-import { AppEvent } from "@/dummy-data";
+import { AppEvent } from "@/interfaces/app-event.interface";
 
 import EventItem from "./event-item";
 import styles from "./event-list.module.css";
