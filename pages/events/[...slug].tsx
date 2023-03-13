@@ -4,14 +4,21 @@ import { FC } from "react";
 import EventList from "@/components/events/event-list";
 import Button from "@/components/ui/button";
 import ErrorAlert from "@/components/ui/error-alert";
+import ResultsTitle from "@/components/ui/results-title";
 import { getFilteredEvents } from "@/helpers/api-util";
 import { AppEvent } from "@/interfaces/app-event.interface";
 
-const FilteredEventsPage: FC<{ events: AppEvent[] }> = (props) => {
-  if (props.events && props.events.length > 0) {
+const FilteredEventsPage: FC<{
+  events: AppEvent[];
+  hasError?: boolean;
+  numYear?: number;
+  numMonth?: number;
+}> = (props) => {
+  if (!props.hasError && props.numYear && props.numMonth) {
+    const date = new Date(props.numYear, props.numMonth - 1);
     return (
       <>
-        <h1>Filtered events</h1>
+        <ResultsTitle date={date} />
         <EventList items={props.events}></EventList>
       </>
     );
@@ -29,21 +36,32 @@ const FilteredEventsPage: FC<{ events: AppEvent[] }> = (props) => {
 };
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
+  const { params } = context;
+
   if (
-    context.params &&
-    context.params.slug &&
-    Array.isArray(context.params.slug) &&
-    context.params.slug.length === 2
+    params &&
+    params.slug &&
+    Array.isArray(params.slug) &&
+    params.slug.length === 2
   ) {
-    const slug: string[] = context.params.slug as string[];
+    const slug: string[] = params.slug as string[];
     const year = +slug[0];
     const month = +slug[1];
     const filteredEvents = await getFilteredEvents(year, month);
+    if (filteredEvents.length === 0) {
+      return { props: { hasError: true } };
+    }
     return {
-      props: { events: filteredEvents },
+      props: { events: filteredEvents, numYear: year, numMonth: month },
     };
   }
-  return { notFound: true };
+  return {
+    props: {
+      hasError: true,
+    },
+    // notFound: true,
+    // redirect: { destination: "/error" }
+  };
 };
 
 export default FilteredEventsPage;
