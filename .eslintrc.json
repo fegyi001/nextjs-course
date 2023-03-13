@@ -1,3 +1,37 @@
 {
-  "extends": "next/core-web-vitals"
+  "extends": "next/core-web-vitals",
+  "overrides": [
+    {
+      "files": ["*.ts", "*.tsx", "*.js", "*.jsx"],
+      "parserOptions": {
+        "ecmaVersion": 2020,
+        "project": "./tsconfig.json",
+        "createDefaultProgram": true
+      },
+      "plugins": ["simple-import-sort", "unused-imports"],
+      "extends": [
+        "plugin:@typescript-eslint/recommended",
+        "prettier",
+        "plugin:prettier/recommended"
+      ],
+      "rules": {
+        "@typescript-eslint/no-unused-vars": "off",
+        "@typescript-eslint/semi": "error",
+        "@typescript-eslint/no-explicit-any": "off",
+        "unused-imports/no-unused-imports": "error",
+        "unused-imports/no-unused-vars": [
+          "warn",
+          {
+            "vars": "all",
+            "varsIgnorePattern": "^_",
+            "args": "after-used",
+            "argsIgnorePattern": "^_"
+          }
+        ],
+        "simple-import-sort/imports": "error",
+        "simple-import-sort/exports": "error",
+        "prettier/prettier": ["error", { "trailingComma": "all" }]
+      }
+    }
+  ]
 }

@@ -1,17 +1,13 @@
-import { GetStaticProps, GetStaticPaths } from "next";
+import { GetStaticPaths, GetStaticProps } from "next";
 import { FC, Fragment } from "react";
 
-import EventSummary from "@/components/event-detail/event-summary";
-import EventLogistics from "@/components/event-detail/event-logistics";
 import EventContent from "@/components/event-detail/event-content";
-import { getAllEvents, getEventById } from "@/helpers/api-util";
+import EventLogistics from "@/components/event-detail/event-logistics";
+import EventSummary from "@/components/event-detail/event-summary";
+import { getEventById, getFeaturedEvents } from "@/helpers/api-util";
 import { AppEvent } from "@/interfaces/app-event.interface";
 
 const EventDetailPage: FC<{ event: AppEvent }> = (props) => {
-  if (!props.event) {
-    return <p>No event found!</p>;
-  }
-
   return (
     <>
       <Fragment>
@@ -37,17 +33,18 @@ export const getStaticProps: GetStaticProps = async (context) => {
     if (!event) {
       return { notFound: true };
     }
-    return { props: { event } };
+    return { props: { event }, revalidate: 30 };
   }
   return { notFound: true };
 };
 
 export const getStaticPaths: GetStaticPaths = async () => {
-  const allEvents = await getAllEvents();
+  const allEvents = await getFeaturedEvents();
   const paths = allEvents.map((event) => ({ params: { eventId: event.id } }));
   return {
     paths,
-    fallback: true,
+    // fallback: true,
+    fallback: "blocking",
   };
 };
 

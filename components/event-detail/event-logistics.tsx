@@ -1,9 +1,10 @@
-import AddressIcon from "../icons/address-icon";
-import DateIcon from "../icons/date-icon";
-import LogisticsItem from "./logistics-item";
-import classes from "./event-logistics.module.css";
 import Image from "next/image";
 import { FC } from "react";
+
+import AddressIcon from "../icons/address-icon";
+import DateIcon from "../icons/date-icon";
+import classes from "./event-logistics.module.css";
+import LogisticsItem from "./logistics-item";
 
 const EventLogistics: FC<{
   date: string;

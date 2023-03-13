@@ -1,12 +1,11 @@
-import EventList from "@/components/events/event-list";
-import styles from "@/styles/Home.module.css";
-import { AppEvent } from "@/interfaces/app-event.interface";
 import { FC } from "react";
+
+import EventList from "@/components/events/event-list";
 import { getFeaturedEvents } from "@/helpers/api-util";
+import { AppEvent } from "@/interfaces/app-event.interface";
+import styles from "@/styles/Home.module.css";
 
 const HomePage: FC<{ events: AppEvent[] }> = (props) => {
-  const { events } = props;
-
   return (
     <>
       <div className={styles.container}>
@@ -21,6 +20,7 @@ export async function getStaticProps() {
   return {
     props: {
       events: featuredEvents,
+      revalidate: 1800,
     },
   };
 }

@@ -1,5 +1,6 @@
-import { FC, ReactNode } from "react";
 import Link from "next/link";
+import { FC } from "react";
+
 import styles from "./main-header.module.css";
 
 const MainHeader: FC = () => {

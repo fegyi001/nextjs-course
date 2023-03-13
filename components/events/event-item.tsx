@@ -1,10 +1,12 @@
-import { AppEvent } from "@/dummy-data";
-import styles from "./event-item.module.css";
-import Button from "@/components/ui/button";
-import DateIcon from "@/components/icons/date-icon";
+import Image from "next/image";
+
 import AddressIcon from "@/components/icons/address-icon";
 import ArrowRightIcon from "@/components/icons/arrow-right-icon";
-import Image from "next/image";
+import DateIcon from "@/components/icons/date-icon";
+import Button from "@/components/ui/button";
+import { AppEvent } from "@/dummy-data";
+
+import styles from "./event-item.module.css";
 
 export default function EventItem(props: AppEvent) {
   const { title, image, date, location, id } = props;
