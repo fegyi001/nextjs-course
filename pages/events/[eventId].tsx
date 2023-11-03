@@ -4,10 +4,12 @@ import { FC, Fragment } from "react";
 import EventContent from "@/components/event-detail/event-content";
 import EventLogistics from "@/components/event-detail/event-logistics";
 import EventSummary from "@/components/event-detail/event-summary";
+import Comments from "@/components/input/comments";
 import { getEventById, getFeaturedEvents } from "@/helpers/api-util";
 import { AppEvent } from "@/interfaces/app-event.interface";
 
 const EventDetailPage: FC<{ event: AppEvent }> = (props) => {
+  console.log(props.event);
   return (
     <>
       <Fragment>
@@ -21,6 +23,7 @@ const EventDetailPage: FC<{ event: AppEvent }> = (props) => {
         <EventContent>
           <p>{props.event.description}</p>
         </EventContent>
+        <Comments eventId={props.event.id}></Comments>
       </Fragment>
     </>
   );
